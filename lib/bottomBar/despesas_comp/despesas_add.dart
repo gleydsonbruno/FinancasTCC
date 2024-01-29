@@ -1,15 +1,55 @@
 import 'package:definitivo_app_tcc/bottomBar/common_widgets/custom_textfield.dart';
+import 'package:definitivo_app_tcc/bottomBar/despesas_comp/components/type_choice.dart';
+import 'package:definitivo_app_tcc/models/banco_de_dados/database.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
-class DespesaAdd extends StatelessWidget {
-  const DespesaAdd({super.key});
+
+class DespesaAdd extends StatefulWidget {
+  List<TesteID> listaDespesas;
+  DespesaAdd({
+    super.key,
+    required this.listaDespesas,
+  });
+
+  @override
+  State<DespesaAdd> createState() => _DespesaAddState();
+}
+
+class _DespesaAddState extends State<DespesaAdd> {
+  final _db = DatabaseHelper();
+  DateTime actualdate = DateTime.now();
+  TextEditingController a = TextEditingController();
+  TextEditingController b = TextEditingController();
+  TextEditingController c = TextEditingController();
+  TextEditingController d = TextEditingController();
+
+  limpaCampos() {
+    a.clear();
+    b.clear();
+    c.clear();
+    d.clear();
+  }
+
+  listarDespesas() async {
+    List itemsRecuperados = await _db.listarDespesas();
+    List<TesteID> listaTemporaria = [];
+
+    for (var despesa in itemsRecuperados) {
+      TesteID item = TesteID.fromMap(despesa);
+      listaTemporaria.add(item);
+    }
+
+    if (mounted) {
+    setState(() {
+      widget.listaDespesas = listaTemporaria;
+    });
+  }
+    listaTemporaria = [];
+  }
+  
 
   @override
   Widget build(BuildContext context) {
-    DateTime actualdate = DateTime.now();
-
     return Dialog(
       elevation: 8,
       shape: RoundedRectangleBorder(
@@ -36,19 +76,59 @@ class DespesaAdd extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text('Título da despesa'),
-                      const CustomTextField(icon: Icons.title),
+                      CustomTextField(
+                        icon: Icons.title,
+                        controller: a,
+                      ),
                       Text('Valor'),
-                      const CustomTextField(
+                      CustomTextField(
                         icon: Icons.money,
                         type: TextInputType.number,
+                        controller: b,
                       ),
                       Text('Tipo'),
-                      const CustomTextField(
-                        icon: Icons.merge_type,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: Colors.black.withAlpha(70),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              GestureDetector(
+                                onTap: () {},
+                                child: TypeChoice(
+                                  icon: Icons.house,
+                                  label: 'Casa',
+                                  color: Colors.red,
+                                ),
+                              ),
+                              TypeChoice(
+                                icon: Icons.layers,
+                                label: 'Lazer',
+                                color: Colors.blue,
+                              ),
+                              TypeChoice(
+                                icon: Icons.heart_broken_outlined,
+                                label: 'Saúde',
+                                color: Colors.green,
+                              ),
+                              TypeChoice(
+                                icon: Icons.bookmarks,
+                                label: 'Educação',
+                                color: Colors.purple,
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                       Text('Comentário'),
-                      const CustomTextField(
+                      CustomTextField(
                         icon: Icons.comment,
+                        controller: d,
                       ),
                       Text('Data'),
                       Container(
@@ -56,12 +136,11 @@ class DespesaAdd extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
                           color: Colors.black.withAlpha(70),
-                          
                         ),
                         child: Center(
                           child: Text(
                             actualdate.toString(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.normal,
                               fontSize: 16,
                             ),
@@ -81,15 +160,37 @@ class DespesaAdd extends StatelessWidget {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              String title = a.text;
+                              double value = double.parse(b.text);
+                              String type = c.text;
+                              String description = d.text;
+
+                              TesteID teste = TesteID(
+                                null,
+                                title,
+                                value,
+                                description,
+                                type,
+                              );
+
+                              await _db.inserir(teste);
+                              setState(() {
+                                widget.listaDespesas.add(teste);
+                              });
+                              limpaCampos();
+                              Navigator.of(context).pop();
+                            },
                             child: const Text(
                               'Concluir',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                           ),
+                          
                         ],
-                      )
+                      ),
+                     
                     ],
                   ),
                 ),

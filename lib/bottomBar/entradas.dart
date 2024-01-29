@@ -30,6 +30,7 @@ class Entradas extends StatelessWidget {
           child: Column(children: [
             Expanded(
               child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 itemCount: despesas.length,
                 itemBuilder: (_, index) {
                   return EntradaCard(

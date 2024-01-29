@@ -6,13 +6,11 @@ class InputSaldo extends StatelessWidget {
   InputSaldo({super.key});
 
   TextEditingController saldoC = TextEditingController();
-  
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 25, 90, 39),
+      backgroundColor: Colors.green,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -29,7 +27,7 @@ class InputSaldo extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 25, left: 55, right: 55),
             child: TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
@@ -48,12 +46,14 @@ class InputSaldo extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => Home(saldo: saldoC.text,),
+                    builder: (context) => Home(
+                      saldo: saldoC.text,
+                    ),
                   ),
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
+                backgroundColor: const Color.fromARGB(255, 33, 90, 35),
                 padding: EdgeInsets.all(18),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25),
