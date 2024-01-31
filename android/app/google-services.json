@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "420113511598",
+    "project_id": "gfacil-599a4",
+    "storage_bucket": "gfacil-599a4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:420113511598:android:aea449361a0bd69b22293f",
+        "android_client_info": {
+          "package_name": "com.example.definitivo_app_tcc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkQe6C3hWbXrQEW5poyp0v5LJqh4SLBlQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

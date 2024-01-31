@@ -1,11 +1,42 @@
+import 'dart:async';
+
 import 'package:definitivo_app_tcc/home.dart';
+import 'package:definitivo_app_tcc/models/banco_de_dados/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class InputSaldo extends StatelessWidget {
+class InputSaldo extends StatefulWidget {
   InputSaldo({super.key});
 
+  @override
+  State<InputSaldo> createState() => _InputSaldoState();
+}
+
+class _InputSaldoState extends State<InputSaldo> {
+
   TextEditingController saldoC = TextEditingController();
+  final db = DatabaseHelper();
+  double saldoAtual = 0.0 ;
+
+
+
+  enviarSaldo(Saldo valor) async {
+    Saldo real = valor;
+    return await db.atualizarSaldo(real);
+
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    //carregarSaldo();
+    
+  }
+
+   carregarSaldo() async {
+    Saldo? saldoAtual = await db.obterSaldoUsuario();
+    return saldoAtual;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +74,13 @@ class InputSaldo extends StatelessWidget {
               vertical: 25,
             ),
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
+                dynamic oq = double.tryParse(saldoC.text);
+                var valor = Saldo(oq);
+                enviarSaldo(valor);
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => Home(
-                      saldo: saldoC.text,
-                    ),
+                    builder: (context) => Home(),
                   ),
                 );
               },
@@ -63,6 +95,7 @@ class InputSaldo extends StatelessWidget {
                 'Confirmar',
                 style: TextStyle(
                   fontSize: 20,
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -72,3 +105,4 @@ class InputSaldo extends StatelessWidget {
     );
   }
 }
+

@@ -3,14 +3,16 @@ import 'dart:math';
 import 'package:definitivo_app_tcc/bottomBar/despesas.dart';
 import 'package:definitivo_app_tcc/bottomBar/entradas.dart';
 import 'package:definitivo_app_tcc/bottomBar/geral.dart';
+import 'package:definitivo_app_tcc/input_saldo.dart';
+import 'package:definitivo_app_tcc/models/banco_de_dados/database.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
-  final String saldo;
+  //final double saldo;
 
   Home({
     super.key,
-    required this.saldo,
+    //required this.saldo,
   });
 
   @override
@@ -19,9 +21,17 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-
+  var db = DatabaseHelper();
   int currentIndex = 0;
   final pageController = PageController();
+  
+  puxarSaldo() {
+    var teste = db.obterSaldoUsuario();
+    print(teste);
+  }
+ 
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +53,7 @@ class _HomeState extends State<Home> {
               children: [
                 Center(
                   child: Text(
-                    'Saldo: R\$ ${widget.saldo}',
+                    'Saldo: R\$ 1',
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,

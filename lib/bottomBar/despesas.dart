@@ -26,10 +26,10 @@ class _DespesasState extends State<Despesas> {
     }
 
     if (mounted) {
-    setState(() {
-      listaDespesas = listaTemporaria;
-    });
-  }
+      setState(() {
+        listaDespesas = listaTemporaria;
+      });
+    }
     listaTemporaria = [];
   }
 
@@ -77,17 +77,21 @@ class _DespesasState extends State<Despesas> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.all(8.0),
         child: FloatingActionButton(
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return DespesaAdd(
-                      listaDespesas: listaDespesas,
-                    );
-                  });
-            },
-            backgroundColor: Colors.black.withAlpha(150),
-            child: Icon(Icons.add)),
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return DespesaAdd(
+                    listaDespesas: listaDespesas,
+                  );
+                });
+          },
+          backgroundColor: Colors.black.withAlpha(150),
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+        ),
       ),
     );
   }
