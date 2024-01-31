@@ -2,6 +2,7 @@ import 'package:definitivo_app_tcc/auth/login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,4 +19,7 @@ void main() async {
     home: const SignInScreen(),
   ));
 }
+
+
+
 

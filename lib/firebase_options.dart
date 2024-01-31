@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,16 +49,6 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCKt5QFBIDL_sUJ1Oq5am0Rxvn5VlTnEpE',
-    appId: '1:420113511598:web:d0059cf3a9eb833422293f',
-    messagingSenderId: '420113511598',
-    projectId: 'gfacil-599a4',
-    authDomain: 'gfacil-599a4.firebaseapp.com',
-    storageBucket: 'gfacil-599a4.appspot.com',
-    measurementId: 'G-4GD0X1MZ8L',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCkQe6C3hWbXrQEW5poyp0v5LJqh4SLBlQ',
     appId: '1:420113511598:android:aea449361a0bd69b22293f',
@@ -68,14 +64,5 @@ class DefaultFirebaseOptions {
     projectId: 'gfacil-599a4',
     storageBucket: 'gfacil-599a4.appspot.com',
     iosBundleId: 'com.example.definitivoAppTcc',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBSJQLXotKvlSiaCd9lGo8hR-zcu5m87XM',
-    appId: '1:420113511598:ios:88f7339c6cd4e62322293f',
-    messagingSenderId: '420113511598',
-    projectId: 'gfacil-599a4',
-    storageBucket: 'gfacil-599a4.appspot.com',
-    iosBundleId: 'com.example.definitivoAppTcc.RunnerTests',
   );
 }

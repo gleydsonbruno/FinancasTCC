@@ -1,9 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:definitivo_app_tcc/bottomBar/common_widgets/custom_textfield.dart';
 import 'package:definitivo_app_tcc/bottomBar/despesas_comp/components/type_choice.dart';
 import 'package:flutter/material.dart';
 
-class EntradaAdd extends StatelessWidget {
+class EntradaAdd extends StatefulWidget {
   const EntradaAdd({super.key});
+
+  @override
+  State<EntradaAdd> createState() => _EntradaAddState();
+}
+
+class _EntradaAddState extends State<EntradaAdd> {
+
+  TextEditingController _tituloEntradaC = TextEditingController();
+  TextEditingController _valorEntradaC = TextEditingController();
+  TextEditingController _tipoEntradaC = TextEditingController();
+  TextEditingController _comentarioEntradaC = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +46,12 @@ class EntradaAdd extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text('Título da entrada'),
-                      const CustomTextField(icon: Icons.title),
+                      CustomTextField(icon: Icons.title, controller: _tituloEntradaC ,),
                       Text('Valor'),
-                      const CustomTextField(
+                      CustomTextField(
                         icon: Icons.money,
                         type: TextInputType.number,
+                        controller: _valorEntradaC,
                       ),
                       Text('Tipo'),
                       Padding(
@@ -79,8 +92,9 @@ class EntradaAdd extends StatelessWidget {
                         ),
                       ),
                       Text('Comentário'),
-                      const CustomTextField(
+                      CustomTextField(
                         icon: Icons.comment,
+                        controller: _comentarioEntradaC,
                       ),
                       Text('Data'),
                       Container(
@@ -112,7 +126,11 @@ class EntradaAdd extends StatelessWidget {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                adicionarEntradaAoFirestore();
+                              });
+                            },
                             child: const Text(
                               'Concluir',
                               style: TextStyle(
@@ -130,5 +148,20 @@ class EntradaAdd extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> adicionarEntradaAoFirestore() async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    print(_tituloEntradaC);
+    print(_tituloEntradaC.text);
+    await firestore.collection('entradas').add({
+      'titulo': _tituloEntradaC.text,
+      'valor': double.tryParse(_valorEntradaC.text),
+      'tipo': 'random',
+      'comentario': _comentarioEntradaC.text,
+      'data': FieldValue.serverTimestamp(),
+    });
+    
   }
 }

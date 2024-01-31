@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:definitivo_app_tcc/bottomBar/despesas_comp/despesa_card.dart';
 import 'package:definitivo_app_tcc/bottomBar/despesas_comp/despesas_add.dart';
 import 'package:definitivo_app_tcc/bottomBar/entradas_comp/entrada_card.dart';
@@ -7,11 +8,16 @@ import 'package:definitivo_app_tcc/models/despesa_model.dart';
 import 'package:flutter/material.dart';
 import 'package:definitivo_app_tcc/models/appdata.dart' as appData;
 
-class Entradas extends StatelessWidget {
+class Entradas extends StatefulWidget {
   Entradas({
     super.key,
   });
 
+  @override
+  State<Entradas> createState() => _EntradasState();
+}
+
+class _EntradasState extends State<Entradas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,13 +54,20 @@ class Entradas extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: FloatingActionButton(
             onPressed: () {
-              showDialog(context: context, builder: (context) {
-                return EntradaAdd();
-              });
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return EntradaAdd();
+                  });
             },
             backgroundColor: Colors.black.withAlpha(150),
-            child: Icon(Icons.add, color: Colors.white,)),
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+            )),
       ),
     );
   }
+
+  
 }

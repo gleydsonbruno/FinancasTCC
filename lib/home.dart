@@ -53,7 +53,7 @@ class _HomeState extends State<Home> {
               children: [
                 Center(
                   child: Text(
-                    'Saldo: R\$ 1',
+                    'Saldo: R\$ ${db.obterSaldoUsuario()}',
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,

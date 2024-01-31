@@ -3,13 +3,24 @@ import 'package:definitivo_app_tcc/auth/common/custom_form.dart';
 import 'package:definitivo_app_tcc/input_saldo.dart';
 import 'package:flutter/material.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+  State<SignInScreen> createState() => _SignInScreenState();
+}
 
+class _SignInScreenState extends State<SignInScreen> {
+
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _senhaController = TextEditingController();
+
+    
+
+  @override
+  Widget build(BuildContext context) {
+    
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.green,
       body: SingleChildScrollView(
@@ -73,12 +84,14 @@ class SignInScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     //Email
-                    const CustomAuthField(
+                    CustomAuthField(
+                      controller: _emailController,
                       icon: Icons.email,
                       label: 'Email',
                     ),
                     //Senha
-                    const CustomAuthField(
+                    CustomAuthField(
+                      controller: _senhaController,
                       icon: Icons.lock,
                       label: 'Senha',
                       isSecret: true,

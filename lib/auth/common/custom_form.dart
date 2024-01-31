@@ -8,6 +8,7 @@ class CustomAuthField extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final String? initialValue;
   final bool readOnly;
+  final TextEditingController controller;
 
   const CustomAuthField({
     super.key, 
@@ -17,6 +18,7 @@ class CustomAuthField extends StatefulWidget {
     this.inputFormatters,
     this.initialValue,
     this.readOnly = false,
+    required this.controller,
     });
 
   @override
@@ -39,6 +41,7 @@ class _CustomAuthFieldState extends State<CustomAuthField> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: TextFormField(
+        controller: widget.controller,
         readOnly: widget.readOnly,
         initialValue: widget.initialValue,
         inputFormatters: widget.inputFormatters,

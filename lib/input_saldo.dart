@@ -75,9 +75,9 @@ class _InputSaldoState extends State<InputSaldo> {
             ),
             child: ElevatedButton(
               onPressed: () async {
-                dynamic oq = double.tryParse(saldoC.text);
-                var valor = Saldo(oq);
-                enviarSaldo(valor);
+                //dynamic oq = double.tryParse(saldoC.text);
+                //var valor = Saldo(oq);
+                //enviarSaldo(valor);
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => Home(),

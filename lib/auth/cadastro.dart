@@ -6,6 +6,10 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({super.key});
 
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _senhaController = TextEditingController();
+  TextEditingController _nomeController = TextEditingController();
+
   final cpfFormatter = MaskTextInputFormatter(
       mask: '###.###.###-##',
       filter: {'#': RegExp(r'[0-9]')},
@@ -55,27 +59,20 @@ class SignUpScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         CustomAuthField(
+                          controller: _emailController,
                           icon: Icons.email,
                           label: 'Email',
                         ),
                         CustomAuthField(
+                          controller: _senhaController,
                           icon: Icons.lock,
                           label: 'Senha',
                           isSecret: true,
                         ),
                         CustomAuthField(
+                          controller: _nomeController,
                           icon: Icons.person,
                           label: 'Nome',
-                        ),
-                        CustomAuthField(
-                          icon: Icons.phone,
-                          label: 'Celular',
-                          inputFormatters: [phoneFormatter],
-                        ),
-                        CustomAuthField(
-                          icon: Icons.file_copy,
-                          label: 'CPF',
-                          inputFormatters: [cpfFormatter],
                         ),
                         SizedBox(
                           height: 50,
